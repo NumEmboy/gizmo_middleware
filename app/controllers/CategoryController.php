@@ -1,6 +1,16 @@
 <?php
 
-class CategoryController extends \BaseController {
+use Yodme\Transformer\CategoryTransformer;
+use Sorskod\Larasponse\Larasponse;
+
+class CategoryController extends ApiController {
+
+	protected $fractal;
+
+	public function __construct(Larasponse $fractal)
+	{
+		$this->fractal = $fractal;
+	}
 
 	/**
 	 * Display a listing of the resource.
@@ -10,7 +20,10 @@ class CategoryController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$categories = Category::all();
+		return $this->respond([
+			'categories' => $this->fractal->collection($categories, new CategoryTransformer())
+		]);
 	}
 
 	/**
@@ -44,7 +57,20 @@ class CategoryController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		$category = Category::find($id);
+		if ( ! $category) 
+		{
+			return $this->respondNotFound('Category doesnt exist!');
+		}
+
+		$this->setStatusCode(\Illuminate\Http\Response::HTTP_OK);
+		return $this->respond([
+			'success' => [
+				'category' => $this->fractal->item($category, new CategoryTransformer()),
+				'status_code' => $this->getStatusCode(),
+				'message' => 'Ok'
+			]	
+		]);
 	}
 
 	/**

@@ -13,17 +13,21 @@ class ProductController extends ApiController {
 	}
 
 	/**
-	 * Display a listing of the resource.
-	 * GET /product
-	 *
-	 * @return Response
+	 * Display a listing of resource
+	 * @param  null $categoryId
+	 * @return response
 	 */
-	public function index()
+	public function index($categoryId=null)
 	{
-		$products = Product::all();
+		$products = $this->getProducts($categoryId);
 		return $this->respond([
 			'products' => $this->fractal->collection($products, new ProductTransformer())
 		]);
+	}
+
+	public function getProducts($categoryId)
+	{
+		return $categoryId ? Category::findOrFail($categoryId)->products : Product::all();
 	}
 
 	/**

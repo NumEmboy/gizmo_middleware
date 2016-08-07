@@ -6,11 +6,13 @@ Route::any('api/v1/signin', [
 
 Route::group(['prefix' => 'api/v1'], function()
 {
-	Route::resource('users', 'UsersController');
-	Route::get('products', 'ProductController@index');
-	Route::get('products/{id}', 'ProductController@show');
-	// Route::post('/signin', [
-	// 	'uses' => 'UsersController@postSignIn',
-	// 	'as' => 'user.signin'
-	// ]);
+	Route::get('categories/{id}/products', 'ProductController@index');
+	Route::resource('users', 'UserController');
+	Route::resource('products', 'ProductController', ['only' => ['index', 'show']]);
+	Route::resource('categories', 'CategoryController', ['only' => ['index', 'show']]);
 });
+
+// Route::post('/signin', [
+// 	'uses' => 'UsersController@postSignIn',
+// 	'as' => 'user.signin'
+// ]);

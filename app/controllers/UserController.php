@@ -3,7 +3,7 @@
 use Yodme\Transformer\UserTransformer;
 use Sorskod\Larasponse\Larasponse;
 
-class UsersController extends ApiController {
+class UserController extends ApiController {
 
 	protected $fractal;
 	
