@@ -25,8 +25,6 @@ class UsersController extends ApiController {
 		return $this->respond([
 			'users' => $this->fractal->collection($users, new UserTransformer())
 		]);
-			
-
 	}
 
 	/**
@@ -129,10 +127,6 @@ class UsersController extends ApiController {
 							'message' => 'Ok'
 						]
 					]);
-					// return Response::json([
-					// 	'message' => 'Authenticated!',
-					// 	'code' => 200
-					// ]);
 				}
 					return $this->respondUnauthorized('Anauthorized user');
 			}
