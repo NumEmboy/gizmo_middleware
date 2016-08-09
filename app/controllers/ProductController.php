@@ -14,20 +14,23 @@ class ProductController extends ApiController {
 
 	/**
 	 * Display a listing of resource
-	 * @param  null $categoryId
 	 * @return response
 	 */
 	public function index($categoryId=null)
 	{
 		$products = $this->getProducts($categoryId);
-		return $this->respond([
-			'products' => $this->fractal->collection($products, new ProductTransformer())
-		]);
+		if ($products->count() > 0) {
+			return $this->respond([
+				'products' => $this->fractal->collection($products, new ProductTransformer())
+			]);
+		}
+		return $this->respondNotFound('No available products in this category!');
+		
 	}
 
 	public function getProducts($categoryId)
 	{
-		return $categoryId ? Category::findOrFail($categoryId)->products : Product::all();
+		return $categoryId ? Product::where('category_id', $categoryId)->get() : Product::orderBy('id','DESC')->get();
 	}
 
 	/**

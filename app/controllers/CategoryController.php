@@ -27,17 +27,6 @@ class CategoryController extends ApiController {
 	}
 
 	/**
-	 * Show the form for creating a new resource.
-	 * GET /category/create
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
-
-	/**
 	 * Store a newly created resource in storage.
 	 * POST /category
 	 *
@@ -45,7 +34,23 @@ class CategoryController extends ApiController {
 	 */
 	public function store()
 	{
-		//
+		$validator = Validator::make(Input::all(), Category::$rules);
+
+		if ($validator->passes()) {
+			$category = new Category;
+			$category->name = Input::get('name');
+			$category->save();
+
+			$this->setStatusCode(\Illuminate\Http\Response::HTTP_CREATED);
+			return Response::json([
+				'message' => 'Successfully created!',
+				'status_code' => $this->getStatusCode()
+			]);
+		}
+
+		return Response::json([
+			'message' => $validator->messages()
+		]);
 	}
 
 	/**
@@ -104,9 +109,19 @@ class CategoryController extends ApiController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy()
 	{
-		//
+		$id = Input::get('id');
+		$category = Category::find($id);
+		if ($category) {
+			$category->delete();
+			return Response::json([
+				'message' => 'Category deleted!'
+			]);
+		}
+		return Response::json([
+			'message' => 'Category doesnt exist!'
+		]);
 	}
 
 }

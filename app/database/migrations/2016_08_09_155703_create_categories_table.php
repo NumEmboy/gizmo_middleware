@@ -15,8 +15,9 @@ class CreateCategoriesTable extends Migration {
 		Schema::create('categories', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->enum('name', ['Cellphone','Laptop','Watch','Camera']);
+			$table->string('name');
 			$table->timestamps();
+			$table->softDeletes();
 		});
 	}
 

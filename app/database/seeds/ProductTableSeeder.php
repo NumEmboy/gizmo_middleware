@@ -14,10 +14,12 @@ class ProductTableSeeder extends Seeder {
 		foreach(range(1, 4) as $index)
 		{
 			Product::create([
-				'imagePath' => 'images/cellphone/cp' .$i++. '.jpg',
-				'title' => $faker->name,
-				'description' => $faker->text,
-				'price' => $faker->numberBetween($min = 1000, $max = 9000)
+				'category_id' 		=> 1,
+				'title' 			=> $faker->name,
+				'description' 		=> $faker->text,
+				'price' 			=> $faker->numberBetween($min = 1000, $max = 9000),
+				'availability' 		=> $faker->numberBetween(0,1),
+				'imagePath' 		=> 'images/cellphone/cp' .$i++. '.jpg',
 			]);
 		}
 
@@ -26,10 +28,12 @@ class ProductTableSeeder extends Seeder {
 		foreach(range(1, 4) as $index)
 		{
 			Product::create([
-				'imagePath' => 'images/laptop/l' .$j++. '.jpg',
-				'title' => $faker->name,
-				'description' => $faker->text,
-				'price' => $faker->numberBetween($min = 1000, $max = 9000)
+				'category_id' 		=> 2,
+				'title' 			=> $faker->name,
+				'description' 		=> $faker->text,
+				'price' 			=> $faker->numberBetween($min = 1000, $max = 9000),
+				'availability' 		=> $faker->numberBetween(0,1),
+				'imagePath' 		=> 'images/laptop/l' .$j++. '.jpg',
 			]);
 		}
 
@@ -38,10 +42,12 @@ class ProductTableSeeder extends Seeder {
 		foreach(range(1, 3) as $index)
 		{
 			Product::create([
-				'imagePath' => 'images/watch/w' .$x++. '.jpg',
-				'title' => $faker->name,
-				'description' => $faker->text,
-				'price' => $faker->numberBetween($min = 1000, $max = 9000)
+				'category_id' 		=> 3,
+				'title' 			=> $faker->name,
+				'description' 		=> $faker->text,
+				'price' 			=> $faker->numberBetween($min = 1000, $max = 9000),
+				'availability' 		=> $faker->numberBetween(0,1),
+				'imagePath' 		=> 'images/watch/w' .$x++. '.jpg',
 			]);
 		}
 
@@ -50,10 +56,12 @@ class ProductTableSeeder extends Seeder {
 		foreach(range(1, 4) as $index)
 		{
 			Product::create([
-				'imagePath' => 'images/camera/c' .$y++. '.jpg',
-				'title' => $faker->name,
-				'description' => $faker->text,
-				'price' => $faker->numberBetween($min = 1000, $max = 9000)
+				'category_id' 		=> 4,
+				'title' 			=> $faker->name,
+				'description'	 	=> $faker->text,
+				'price' 			=> $faker->numberBetween($min = 1000, $max = 9000),
+				'availability' 		=> $faker->numberBetween(0,1),
+				'imagePath' 		=> 'images/camera/c' .$y++. '.jpg',
 			]);
 		}
 

@@ -51,11 +51,6 @@ App::error(function(Exception $exception, $code)
 	Log::error($exception);
 });
 
-App::error(function(Illuminate\Database\Eloquent\ModelNotFoundException $exception)
-{
-	return Response::json(['error'=>['message'=>'Resouce not found!']], 404);
-});
-
 /*
 |--------------------------------------------------------------------------
 | Maintenance Mode Handler

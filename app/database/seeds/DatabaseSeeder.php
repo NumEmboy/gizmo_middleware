@@ -5,8 +5,7 @@ class DatabaseSeeder extends Seeder {
 	private $tables = [
 		'users',
 		'categories',
-		'products',
-		'category_product'
+		'products'
 	];
 
 	/**
@@ -29,8 +28,6 @@ class DatabaseSeeder extends Seeder {
 		$this->call('ProductTableSeeder');
 		$this->command->info('Products Table Seeded!');
 
-		$this->call('CategoryProductTableSeeder');
-		$this->command->info('category_product Table Seeded!');
 	}
 
 	private function cleanDatabase()
