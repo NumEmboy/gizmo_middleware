@@ -9,12 +9,12 @@ class UserTableSeeder extends Seeder {
 	{
 		$faker = Faker::create();
 		User::create([
-			'username' => 'yodme',
-			'password' => Hash::make('secret123'),
-			'email' => $faker->email,
 			'firstname' => $faker->firstNameMale,
 			'lastname' => $faker->lastName,
-			'remember_token' => $faker->sha256
+			'email' => 'bigEm021712@gmail.com',
+			'password' => Hash::make('secret123'),
+			'telephone' => '09068380300',
+			'admin' => 1
 		]);
 	}
 

@@ -1,22 +1,39 @@
 <?php
 
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
+
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
 class User extends \Eloquent implements UserInterface, RemindableInterface
 {
+	
+	use SoftDeletingTrait;
+
+	protected $datas = ['deleted_at'];
+
 	protected $table = 'users';
+	
 	protected $fillable = [
-		'username', 
-		'password', 
-		'email', 
 		'firstname',
 		'lastname',
-		'type',
-		'rememberToken'
+		'email',
+		'password',
+		'telephone',
+		'type'
 	];
 
-	protected $hidden = ['password', 'rememberToken'];
+	protected $hidden = ['password'];
+
+	public static $rules = [
+		'firstname' => 'required|min:3|alpha',
+		'lastname' => 'required|min:3|alpha',
+		'email' => 'required|email|unique:users',
+		'password' => 'required|alpha_num|between:4,12|confirmed',
+		'password_confirmation' => 'required|alpha_num|between:4,12',
+		'telephone' => 'required|between:10,12',
+		'admin' => 'integer'
+	];
 
 	/**
 	 * Get the user identifier

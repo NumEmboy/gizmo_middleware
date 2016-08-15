@@ -28,17 +28,6 @@ class UserController extends ApiController {
 	}
 
 	/**
-	 * Show the form for creating a new resource.
-	 * GET /users/create
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
-	}
-
-	/**
 	 * Store a newly created resource in storage.
 	 * POST /users
 	 *
@@ -46,7 +35,28 @@ class UserController extends ApiController {
 	 */
 	public function store()
 	{
-		//
+		$validator = Validator::make(Input::all(), User::$rules);
+
+		if ($validator->passes()) {
+			$user = new User;
+			$user->firstname = Input::get('firstname');
+			$user->lastname = Input::get('lastname');
+			$user->email = Input::get('email');
+			$user->password = Hash::make(Input::get('password'));
+			$user->telephone = Input::get('telephone');
+			$user->save();
+
+			$this->setStatusCode(\Illuminate\Http\Response::HTTP_CREATED);
+			return Response::json([
+				'message' => 'Successfully created!',
+				'status_code' => $this->getStatusCode()
+			]);	
+		}
+
+		return Response::json([
+			'message' => $validator->messages()
+		]);
+
 	}
 
 	/**
@@ -71,18 +81,6 @@ class UserController extends ApiController {
 	}
 
 	/**
-	 * Show the form for editing the specified resource.
-	 * GET /users/{id}/edit
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-	/**
 	 * Update the specified resource in storage.
 	 * PUT /users/{id}
 	 *
@@ -101,9 +99,19 @@ class UserController extends ApiController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy()
 	{
-		//
+		$id = Input::get('id');
+		$user = User::find($id);
+		if ($user) {
+			$user->delete();
+			return Response::json([
+				'message' => 'User deleted!'
+			]);
+		}
+		return Response::json([
+			'message' => 'User doesnt exist!'
+		]);
 	}
 
 	public function postSignIn()
@@ -143,7 +151,7 @@ class UserController extends ApiController {
 	protected function loginValidator()
 	{
 		return Validator::make(Input::all(), [
-			'username' => 'required',
+			'email' => 'required',
 			'password' => 'required'
 		]);
 	}
@@ -151,7 +159,7 @@ class UserController extends ApiController {
 	protected function getLoginCredentials()
 	{
 		return [
-			'username' => Input::get('username'),
+			'email' => Input::get('email'),
 			'password' => Input::get('password')
 		];
 	}

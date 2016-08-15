@@ -79,18 +79,6 @@ class CategoryController extends ApiController {
 	}
 
 	/**
-	 * Show the form for editing the specified resource.
-	 * GET /category/{id}/edit
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-	/**
 	 * Update the specified resource in storage.
 	 * PUT /category/{id}
 	 *

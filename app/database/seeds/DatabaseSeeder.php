@@ -3,9 +3,7 @@
 class DatabaseSeeder extends Seeder {
 
 	private $tables = [
-		'users',
-		'categories',
-		'products'
+		'users'
 	];
 
 	/**
@@ -22,11 +20,11 @@ class DatabaseSeeder extends Seeder {
 		$this->call('UserTableSeeder');
 		$this->command->info('Users Table Seeded!');
 
-		$this->call('CategoryTableSeeder');
-		$this->command->info('Categories Table Seeded!');
+		// $this->call('CategoryTableSeeder');
+		// $this->command->info('Categories Table Seeded!');
 
-		$this->call('ProductTableSeeder');
-		$this->command->info('Products Table Seeded!');
+		// $this->call('ProductTableSeeder');
+		// $this->command->info('Products Table Seeded!');
 
 	}
 
